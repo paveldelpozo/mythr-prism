@@ -38,6 +38,7 @@ pnpm install
 ## Deploy en Dokploy
 
 - Despliegue actual (hoy): solo `frontend` con `docker-compose.yml` de la raiz.
+- Si Dokploy clona sin submodulos, habilitar checkout recursivo o ejecutar `git submodule update --init --recursive` antes del deploy.
 - Base futura: servicio `backend` ya definido como profile opcional para activarlo sin rehacer la infraestructura.
 - Guia paso a paso: `DOKPLOY.md`.
 

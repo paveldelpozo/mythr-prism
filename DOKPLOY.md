@@ -27,9 +27,12 @@ Variables:
 
 1. Crear un proyecto tipo Docker Compose en Dokploy apuntando a este repositorio.
 2. Usar `docker-compose.yml` de la raiz.
-3. Definir variables de entorno segun `.env.dokploy.example`.
-4. No activar perfiles adicionales; por defecto se levanta solo `frontend`.
-5. Deploy.
+3. Asegurar submodulos disponibles antes del build del frontend:
+   - habilitar checkout recursivo de submodulos en Dokploy, o
+   - ejecutar `git submodule update --init --recursive` en el entorno de despliegue.
+4. Definir variables de entorno segun `.env.dokploy.example`.
+5. No activar perfiles adicionales; por defecto se levanta solo `frontend`.
+6. Deploy.
 
 En local, equivalente:
 

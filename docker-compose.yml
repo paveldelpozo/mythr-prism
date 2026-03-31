@@ -2,8 +2,8 @@ services:
   frontend:
     container_name: mythr-prism-frontend
     build:
-      context: .
-      dockerfile: mythr-prism-front/Dockerfile
+      context: ./mythr-prism-front
+      dockerfile: Dockerfile
     image: mythr-prism/frontend:latest
     restart: unless-stopped
     ports:
