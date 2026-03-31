@@ -1,0 +1,6 @@
+[submodule "mythr-prism-front"]
+	path = mythr-prism-front
+	url = git@github.com:paveldelpozo/mythr-prism-front.git
+[submodule "mythr-prism-back"]
+	path = mythr-prism-back
+	url = git@github.com:paveldelpozo/mythr-prism-back.git

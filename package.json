@@ -1,0 +1,16 @@
+{
+  "name": "mythr-prism-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=8.15.9"
+  },
+  "packageManager": "pnpm@8.15.9",
+  "scripts": {
+    "dev": "pnpm run dev:front",
+    "dev:front": "pnpm --filter mythr-prism-front run dev",
+    "dev:back": "pnpm --filter mythr-prism-back run dev",
+    "dev:all": "pnpm -r --parallel --filter mythr-prism-front --filter mythr-prism-back run dev"
+  }
+}
