@@ -35,6 +35,26 @@ pnpm install
 
 - El backlog operativo del frontend ahora vive en `mythr-prism-front/docs/backlog.md`.
 
+## Estado de roadmap
+
+- MVP: completado al 100% (cierre formal registrado el 2026-03-31).
+- Siguiente fase activa: V1.
+
+## Arranque V1 (checklist corto)
+
+- [ ] Crear rama `feature/<nombre>` desde `development` para la primera entrega V1.
+- [ ] Seleccionar un objetivo V1 acotado del backlog (recomendado: `Flash ID monitores`).
+- [ ] Definir criterio de aceptacion y prueba minima antes de implementar.
+- [ ] Ejecutar validacion tecnica al cerrar la feature (`typecheck`, `build`, `test` del frontend).
+
+## Flujo de ramas (git-flow simplificado)
+
+- `main`: rama de produccion.
+- `development`: rama de integracion y pruebas locales previas a produccion.
+- Nuevas features: crear `feature/<nombre>` desde `development`.
+- Integracion: merge `feature/<nombre>` -> `development`.
+- Publicacion: merge `development` -> `main`.
+
 ## Deploy en Dokploy
 
 - Despliegue actual (hoy): solo `frontend` con `docker-compose.yml` de la raiz.
