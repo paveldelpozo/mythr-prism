@@ -10,7 +10,10 @@
   "scripts": {
     "dev": "pnpm run dev:front",
     "dev:front": "pnpm --filter mythr-prism-front run dev",
+    "dev:front:lan": "pnpm --filter mythr-prism-front run dev:lan",
     "dev:back": "pnpm --filter mythr-prism-back run dev",
-    "dev:all": "pnpm -r --parallel --filter mythr-prism-front --filter mythr-prism-back run dev"
+    "dev:back:lan": "pnpm --filter mythr-prism-back run dev:lan",
+    "dev:all": "pnpm -r --parallel --filter mythr-prism-front --filter mythr-prism-back run dev",
+    "dev:all:lan": "pnpm -r --parallel --filter mythr-prism-front --filter mythr-prism-back run dev:lan"
   }
 }
