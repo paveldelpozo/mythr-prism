@@ -102,6 +102,7 @@ No uses tuneles publicos sin controles en produccion. Para entornos reales, agre
 ## Notas de ruta
 
 - El backlog operativo del frontend ahora vive en `mythr-prism-front/docs/backlog.md`.
+- Historial acumulativo de cambios del monorepo: `CHANGELOG.md`.
 
 ## Estado de roadmap
 
