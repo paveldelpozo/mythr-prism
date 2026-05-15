@@ -21,7 +21,7 @@ cp .env.dokploy.example .env
 Variables:
 
 - `FRONTEND_PORT` (default `8080`): puerto publico del frontend.
-- `BACKEND_PORT` (default `3000`): puerto reservado para backend futuro.
+- `BACKEND_PORT` (default `3030`): puerto reservado para backend futuro.
 
 ## Desplegar solo frontend ahora (Dokploy)
 
