@@ -1,6 +1,6 @@
 # Deploy en Dokploy
 
-Esta guia deja el monorepo preparado para desplegar hoy solo el frontend, manteniendo un servicio backend placeholder listo para activarse despues.
+Esta guía deja el monorepo preparado para desplegar hoy solo el frontend, manteniendo un servicio backend placeholder listo para activarse despues.
 
 ## Archivos de despliegue
 
