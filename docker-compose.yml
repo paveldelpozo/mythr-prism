@@ -28,7 +28,7 @@ services:
       UNAPPROVED_ATTEMPT_LIMIT: 8
       BAN_DURATION_MS: 300000
     ports:
-      - "${BACKEND_PORT:-3000}:3000"
+      - "${BACKEND_PORT:-3030}:3000"
     depends_on:
       redis:
         condition: service_healthy
