@@ -26,6 +26,21 @@ pnpm install
 - `pnpm run dev:all`: preparado para ejecutar front y back en paralelo.
 - `pnpm run dev:all:lan`: arranca front+back en paralelo accesibles en red LAN (ideal para pruebas desde movil).
 
+## Kickoff V2 API foundation (REST + Realtime)
+
+Para levantar la base de la iniciativa V2 en local:
+
+1. Arranca backend y frontend (`pnpm run dev:all`).
+2. Define API key de foundation en backend (`FULL_CONTROL_API_KEY`) y en frontend (`VITE_FULL_CONTROL_API_KEY`).
+3. Abre Swagger UI en `http://localhost:3000/docs`.
+4. Consume spec en `http://localhost:3000/openapi.json` o `http://localhost:3000/openapi.yaml`.
+5. Prueba endpoint base:
+
+```bash
+curl -H "x-api-key: mythr-prism-dev-full-control-key" \
+  http://localhost:3000/api/v1/system/status
+```
+
 ## Pruebas remotas en móvil (HTTPS)
 
 `getScreenDetails` (Window Management API) requiere un **secure context**.

@@ -6,11 +6,13 @@ Este documento registra de forma acumulativa los cambios relevantes del monorepo
 
 ### Monorepo (raiz)
 
+- [Documentacion] Se agrego entrada de estado `Kickoff V2 API foundation (in progress)` para iniciar la iniciativa `API de control total (REST + Realtime)` con plan por fases y guias de arranque local.
 - [Infraestructura/Deploy] Se actualizaron punteros de submodulos y sincronizacion de ramas para integrar `remote-monitor-cloud-sync` en `development`, para asegurar coherencia entre front, back y documentacion operativa.
 - [Documentacion] Se alinearon notas globales de estado y guias del monorepo tras la entrega Cloud Sync, para dejar trazabilidad unica de release.
 
 ### Frontend (mythr-prism-front)
 
+- [Funcionalidad] Se incorporo cliente base versionado para REST `/api/v1` y cliente realtime `/realtime/v1` con API key, junto con panel diagnostico inicial en `Monitores` para validar handshakes V2 sin reemplazar el flujo operativo actual.
 - [Funcionalidad] Se completo el flujo de `Monitor Virtual Remoto (Cloud Sync)` en UI de operador y cliente remoto, para sumar monitores virtuales por pairing sin hardware adicional.
 - [Funcionalidad] Se implementaron `Filtros en caliente` por monitor (brightness/contrast/saturate/grayscale/blur) con aplicacion en vivo sobre la salida, para ajustar imagen durante reproduccion sin reiniciar ventana esclava.
 - [Mejora UX] Se ajusto la experiencia de pairing remoto (QR, codigo, estados de conexion/reconexion) con feedback operativo continuo, para reducir friccion durante pruebas en campo.
@@ -21,6 +23,8 @@ Este documento registra de forma acumulativa los cambios relevantes del monorepo
 
 ### Backend (mythr-prism-back)
 
+- [Funcionalidad] Se habilito foundation API V2 con `/api/v1`, middleware API key + rate limit, envelope de error estandar, OpenAPI 3.1 + Swagger (`/docs`, `/openapi.json`, `/openapi.yaml`) y canal realtime `/realtime/v1` con auth para eventos base de sistema.
+- [Testing] Se agregaron contratos iniciales para endpoints REST y eventos realtime foundation, para asegurar consumo externo temprano en la iniciativa V2.
 - [Funcionalidad] Se integraron y consolidaron los componentes de senalizacion para Cloud Sync en `development`, para soportar lifecycle de salas remotas en produccion.
 - [Infraestructura/Deploy] Se dejo operativo el stack Node + Socket.io + Redis + WebRTC/pairing para sesiones remotas, para habilitar transporte y control host-cliente.
 - [Documentacion] Se finalizo el backlog tecnico backend de entrega Cloud Sync, para dejar criterios de cierre y pendientes de hardening explicitados.
