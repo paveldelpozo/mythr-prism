@@ -8,15 +8,43 @@ services:
     restart: unless-stopped
     ports:
       - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
 
   backend:
     container_name: mythr-prism-backend
-    profiles:
-      - backend
     build:
       context: .
       dockerfile: mythr-prism-back/Dockerfile
-    image: mythr-prism/backend:placeholder
+    image: mythr-prism/backend:latest
     restart: unless-stopped
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      NODE_ENV: production
+      CORS_ORIGIN: "*"
+      REDIS_URL: redis://redis:6379
+      ROOM_TTL_MS: 300000
+      UNAPPROVED_ATTEMPT_LIMIT: 8
+      BAN_DURATION_MS: 300000
     ports:
       - "${BACKEND_PORT:-3000}:3000"
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    container_name: mythr-prism-redis
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - mythr-prism-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  mythr-prism-redis-data:

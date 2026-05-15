@@ -1,11 +1,11 @@
 # Mythr Prism Monorepo
 
-Este repositorio usa un monorepo PNPM para separar el frontend operativo actual y el backend scaffold para evoluciones futuras.
+Este repositorio usa un monorepo PNPM para separar el frontend operativo actual y el backend realtime de sincronizacion remota.
 
 ## Estructura
 
 - `mythr-prism-front/`: app frontend Vue 3 + TypeScript (operador master + runtime slave).
-- `mythr-prism-back/`: scaffold inicial del backend (sin implementacion funcional todavia).
+- `mythr-prism-back/`: backend realtime (Socket.io + Redis) para pairing/senalizacion de monitores remotos.
 
 ## Requisitos
 
@@ -24,6 +24,89 @@ pnpm install
 - `pnpm run dev:front`: arranca solo `mythr-prism-front`.
 - `pnpm run dev:back`: ejecuta placeholder de backend scaffold.
 - `pnpm run dev:all`: preparado para ejecutar front y back en paralelo.
+- `pnpm run dev:all:lan`: arranca front+back en paralelo accesibles en red LAN (ideal para pruebas desde movil).
+
+## Kickoff V2 API foundation (REST + Realtime)
+
+Para levantar la base de la iniciativa V2 en local:
+
+1. Arranca backend y frontend (`pnpm run dev:all`).
+2. Define API key de foundation en backend (`FULL_CONTROL_API_KEY`) y en frontend (`VITE_FULL_CONTROL_API_KEY`).
+3. Abre Swagger UI en `http://localhost:3000/docs`.
+4. Consume spec en `http://localhost:3000/openapi.json` o `http://localhost:3000/openapi.yaml`.
+5. Prueba endpoint base:
+
+```bash
+curl -H "x-api-key: mythr-prism-dev-full-control-key" \
+  http://localhost:3000/api/v1/system/status
+```
+
+## Pruebas remotas en móvil (HTTPS)
+
+`getScreenDetails` (Window Management API) requiere un **secure context**.
+En desarrollo, `localhost` se considera secure context, pero una IP LAN en `http://<ip>` no siempre mantiene el mismo nivel de compatibilidad.
+Por eso, el flujo recomendado es mantener el operador en `localhost` y exponer solo la URL que usan los clientes moviles via HTTPS.
+
+### Flujo recomendado
+
+1. El host operador abre la app en local (`http://localhost:<puerto>`).
+2. El QR de pairing se genera con `VITE_REMOTE_PUBLIC_URL` (URL publica HTTPS).
+3. El cliente movil abre esa URL HTTPS publica y completa el pairing.
+
+### Ejemplo de `.env` (frontend)
+
+Archivo: `mythr-prism-front/.env`
+
+```dotenv
+# URL publica HTTPS para el QR remoto (cliente movil)
+VITE_REMOTE_PUBLIC_URL=https://mythr-prism-demo.trycloudflare.com
+
+# URL del backend Socket.IO remoto (opcional, segun tu setup)
+VITE_REMOTE_BACKEND_URL=https://mythr-prism-back-demo.trycloudflare.com
+```
+
+Notas:
+- Si `VITE_REMOTE_PUBLIC_URL` no esta definida, el QR usa `window.location.origin`.
+- `VITE_REMOTE_BACKEND_URL` mantiene su comportamiento actual (sin cambios): si no se define en dev, usa `http://localhost:3000`.
+
+### Tunel HTTPS rapido (Cloudflare Tunnel o ngrok)
+
+#### Opcion A: Cloudflare Tunnel
+
+1. Arranca frontend y backend en local.
+2. Expone el frontend:
+
+```bash
+cloudflared tunnel --url http://localhost:5173
+```
+
+3. (Opcional) expone backend Socket.IO:
+
+```bash
+cloudflared tunnel --url http://localhost:3000
+```
+
+4. Copia las URLs `https://...trycloudflare.com` al `.env` del front (`VITE_REMOTE_PUBLIC_URL` y, si aplica, `VITE_REMOTE_BACKEND_URL`).
+
+#### Opcion B: ngrok
+
+1. Expone frontend:
+
+```bash
+ngrok http 5173
+```
+
+2. (Opcional) expone backend:
+
+```bash
+ngrok http 3000
+```
+
+3. Usa las URLs HTTPS de ngrok en `mythr-prism-front/.env`.
+
+### Nota de seguridad
+
+No uses tuneles publicos sin controles en produccion. Para entornos reales, agrega autenticacion, restricciones de red/origen y rotacion de credenciales/tokens.
 
 ## Comandos de validacion frontend
 
@@ -34,6 +117,7 @@ pnpm install
 ## Notas de ruta
 
 - El backlog operativo del frontend ahora vive en `mythr-prism-front/docs/backlog.md`.
+- Historial acumulativo de cambios del monorepo: `CHANGELOG.md`.
 
 ## Estado de roadmap
 
